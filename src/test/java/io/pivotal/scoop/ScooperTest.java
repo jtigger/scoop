@@ -7,20 +7,20 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ConverterTest {
+public class ScooperTest {
 
-	public static class SimpleConverter extends Converter {
+	public static class SimpleScooper extends Scooper {
 	}
 
 	@Test
-	@DisplayName("convert() : copies values of same-named properties.")
+	@DisplayName("scoop() : copies values of same-named properties.")
 	public void copiesSameNamedProperties() {
-		SimpleConverter subject = new SimpleConverter();
+		SimpleScooper subject = new SimpleScooper();
 		FooBeanWithTwoProperties foo = new FooBeanWithTwoProperties();
 		BarBeanWithTwoProperties bar = new BarBeanWithTwoProperties();
 		foo.setBaz("baz");
 		foo.setRee("ree");
-		subject.convert(foo, bar);
+		subject.scoop(foo, bar);
 		assertEquals("baz", bar.getBaz());
 		assertEquals("ree", bar.getRee());
 	}

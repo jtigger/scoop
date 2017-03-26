@@ -4,12 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-public class Converter {
+public class Scooper {
 
 	public static final String GETTER_PREFIX = "get";
 	public static final String SETTER_PREFIX = "set";
 
-	public void convert(Object src, Object dest) {
+	public void scoop(Object src, Object dest) {
 		Method[] methodsOnSource = src.getClass().getMethods();
 		Arrays.stream(methodsOnSource)
 			.filter(method -> method.getName().startsWith(GETTER_PREFIX))
