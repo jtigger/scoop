@@ -27,6 +27,7 @@ public class ScooperAssert extends AbstractAssert<ScooperAssert, Scooper> {
 			.filter(method -> !method.getDeclaringClass().equals(Object.class))
 			.map(method -> new SetterMetaData(method.getName().substring(GETTER_PREFIX.length()), method.getReturnType()))
 			.filter(setterMetaData -> !scooperUnderTest.getIgnoredProperties().contains(setterMetaData.getName()))
+			.filter(setterMetaData -> !scooperUnderTest.getMappedProperties().contains(setterMetaData.getName()))
 			.filter(setterMetaData -> {
 				try {
 					dest.getMethod(SETTER_PREFIX + setterMetaData.getName(), setterMetaData.getReturnType());

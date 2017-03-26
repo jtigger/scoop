@@ -6,15 +6,12 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ScooperIgnoredPropertiesTest {
-	public static class IgnoringScooper extends Scooper {
-		@Override
-		public List<String> getIgnoredProperties() {
-			return Lists.newArrayList("Ree");
+	static class IgnoringScooper extends Scooper {
+		IgnoringScooper() {
+			this.ignoredProperties = Lists.newArrayList("Ree");
 		}
 	}
 
