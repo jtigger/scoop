@@ -11,8 +11,10 @@ import static io.pivotal.scoop.Scooper.GETTER_PREFIX;
 import static io.pivotal.scoop.Scooper.SETTER_PREFIX;
 
 public class ScooperAssert extends AbstractAssert<ScooperAssert, Scooper> {
-	public ScooperAssert(Scooper actual) {
-		super(actual, ScooperAssert.class);
+	private Scooper scooperUnderTest;
+	public ScooperAssert(Scooper scooperUnderTest) {
+		super(scooperUnderTest, ScooperAssert.class);
+		this.scooperUnderTest = scooperUnderTest;
 	}
 
 	public static ScooperAssert assertThat(Scooper scooper) {
@@ -24,6 +26,7 @@ public class ScooperAssert extends AbstractAssert<ScooperAssert, Scooper> {
 			.filter(method -> method.getName().startsWith(GETTER_PREFIX))
 			.filter(method -> !method.getDeclaringClass().equals(Object.class))
 			.map(method -> new SetterMetaData(method.getName().substring(GETTER_PREFIX.length()), method.getReturnType()))
+			.filter(setterMetaData -> !scooperUnderTest.getIgnoredProperties().contains(setterMetaData.getName()))
 			.filter(setterMetaData -> {
 				try {
 					dest.getMethod(SETTER_PREFIX + setterMetaData.getName(), setterMetaData.getReturnType());

@@ -10,7 +10,7 @@ import static io.pivotal.scoop.testsupport.ScooperAssert.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
-public class ScooperTestHelperTest {
+public class ScooperAssertMissingPropertiesTest {
 
 	public static class SimpleScooper extends Scooper {
 	}
