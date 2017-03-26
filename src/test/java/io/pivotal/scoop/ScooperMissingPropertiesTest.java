@@ -5,6 +5,8 @@ import io.pivotal.scoop.samplebeans.FooBeanWithThreeProperties;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ScooperMissingPropertiesTest {
@@ -13,7 +15,7 @@ public class ScooperMissingPropertiesTest {
 	}
 
 	@Test
-	@DisplayName("scoop() : ignores properties from source missing on destination.")
+	@DisplayName("scoop() : reports properties from source missing on destination.")
 	public void ignoreMissingPropertiesOnDest() {
 		SimpleScooper subject = new SimpleScooper();
 		FooBeanWithThreeProperties foo = new FooBeanWithThreeProperties();
@@ -21,9 +23,7 @@ public class ScooperMissingPropertiesTest {
 		foo.setBaz("baz");
 		foo.setRee("ree");
 		foo.setQux("qux");
-		subject.scoop(foo, bar);
-		assertEquals("baz", bar.getBaz());
-		assertEquals("ree", bar.getRee());
+		assertThatThrownBy(() -> subject.scoop(foo, bar)).hasMessageContaining("Qux");
 	}
 
 	@Test

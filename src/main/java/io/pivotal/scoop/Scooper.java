@@ -25,7 +25,8 @@ public abstract class Scooper {
 					try {
 						setter = dest.getClass().getMethod(SETTER_PREFIX + propertyName, getter.getReturnType());
 					} catch (NoSuchMethodException e) {
-						// quietly skip these
+						throw new RuntimeException("Could not find setter for property \"" +
+							propertyName + "\" on " + dest.getClass().getName());
 					}
 					if (setter != null) {
 						Object value = getter.invoke(src);
